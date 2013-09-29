@@ -2,7 +2,7 @@ var express = require('express');
 var router = require('./routes/main.js');
 var app = express();
 
-var PORT = 3000;
+var PORT = 80;
 
 app.configure(function(){
     app.use(express.bodyParser());
@@ -16,7 +16,6 @@ app.post('/result', function(req, res){
 });
 
 app.get('/result', function(req, res){
-    console.log('result');
     router.getResult(req,res);
 });
 
