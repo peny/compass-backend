@@ -19,5 +19,9 @@ app.get('/result', function(req, res){
     router.getResult(req,res);
 });
 
+app.get('/questions', function(req, res){
+    router.getQuestions(req,res);
+});
+
 app.listen(PORT);
 console.log('server running at port '+PORT);

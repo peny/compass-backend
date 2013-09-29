@@ -1,4 +1,4 @@
-require('fs');
+var fs = require('fs');
 
 var request = require('request');
 
@@ -53,5 +53,14 @@ function getResult(req, res){
 
 }
 
+function getQuestions(req,res){
+    fs.readFile(__dirname+'/../questions/questions.json', function (err, data) {
+	console.log(err,data);
+      res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
+      res.end(data);
+    });
+}
+
 module.exports.saveResult = saveResult;
 module.exports.getResult = getResult;
+module.exports.getQuestions= getQuestions;
