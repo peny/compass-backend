@@ -15,24 +15,22 @@ function saveResult(req, res){
     y: req.body.y,
     z: req.body.z
   };
-  console.log(data);
 
-  db.saveResult(data,function(err,result){
+  db.saveResponse(data,function(err,result){
     if(!err){
-      db.getResult(data,function(err,groupResults){
+      db.getResponses(data,function(err,groupResults){
       	res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
-        res.end(groupResults);
+        res.end(JSON.stringify(groupResults));
       });
     } else {
       res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
-      res.end({error: 'There was an error saving the results'});
+      res.end({error: err, message: 'There was an error saving the results'});
     }
   });
 
 }
 
 function getResult(req, res){
-console.log(req);
   var _this = this;
 
   var data = {
@@ -43,11 +41,17 @@ console.log(req);
     z: req.body.z
   };
 
-  db.getResult(data,function(err,groupResults){
-    res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
-    res.end(groupResults);
+  db.getResponses(data,function(err,groupResults){
+    if(!err){
+      res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
+      res.end(JSON.stringify(groupResults));
+    } else {
+      res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
+      res.end({error: err, message: 'There was an error retrieving the results'});
+    }
   });
 
 }
 
 module.exports.saveResult = saveResult;
+module.exports.getResult = getResult;
