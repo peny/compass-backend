@@ -54,10 +54,9 @@ function getResult(req, res){
 }
 
 function getQuestions(req,res){
-    fs.readFile(__dirname+'/../questions/questions.json', function (err, data) {
-	console.log(err,data);
+    fs.readFile(__dirname+'/../questions/questions.json', {encoding: "utf-8"}, function (err, data) {
       res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
-      res.end(data);
+      res.end(JSON.stringify(JSON.parse(data)));
     });
 }
 

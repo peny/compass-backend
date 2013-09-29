@@ -19,7 +19,7 @@ app.get('/result', function(req, res){
     router.getResult(req,res);
 });
 
-app.get('/questions', function(req, res){
+app.get('/questions.json', function(req, res){
     router.getQuestions(req,res);
 });
 
