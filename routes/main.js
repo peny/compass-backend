@@ -16,6 +16,7 @@ function saveResult(req, res){
     z: req.body.z
   };
 
+  console.log(data);
   db.saveResponse(data,function(err,result){
     if(!err){
       db.getResponses(data,function(err,groupResults){
@@ -34,11 +35,7 @@ function getResult(req, res){
   var _this = this;
 
   var data = {
-    name: req.body.name,
     group: req.body.group,
-    x: req.body.x,
-    y: req.body.y,
-    z: req.body.z
   };
 
   db.getResponses(data,function(err,groupResults){
