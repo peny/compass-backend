@@ -35,7 +35,7 @@ function getResult(req, res){
   var _this = this;
 
   var data = {
-    group: req.body.group,
+    group: req.query.group,
   };
 
   db.getResponses(data,function(err,groupResults){
