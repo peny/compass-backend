@@ -15,6 +15,10 @@ app.post('/result', function(req, res){
     router.saveResult(req,res);
 });
 
+app.post('/upload',function(req,res){
+  router.saveGroupImage(req,res);
+});
+
 app.get('/result', function(req, res){
     router.getResult(req,res);
 });
