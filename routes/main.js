@@ -31,6 +31,38 @@ function saveResult(req, res){
 
 }
 
+function saveGroupImage(req, res){
+  var _this = this;
+
+  var filetype = req.files.images.name.match(/\..{2,5}$/);
+
+  var imagePath = "media/"+((new Date()).getTime())+filetype;
+  
+  fs.readFile(req.files.images.path, function (err, data) {
+    fs.writeFile(imagePath, data, function (err) {
+    });
+  });
+
+  var data = {
+    group: req.body.group,
+    imageurl: imagePath,
+  };
+
+  console.log(data);
+  db.setGroupImage(data,function(err,result){
+    if(!err){
+      db.getResponses(data,function(err,groupResults){
+      	res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
+        res.end(JSON.stringify({status: 'OK!'}));
+      });
+    } else {
+      res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
+      res.end({error: err, message: 'There was an error saving the image'});
+    }
+  });
+
+}
+
 function getResult(req, res){
   var _this = this;
 
@@ -38,15 +70,31 @@ function getResult(req, res){
     group: req.query.group,
   };
 
-  db.getResponses(data,function(err,groupResults){
-    if(!err){
-      res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
-      res.end(JSON.stringify(groupResults));
-    } else {
-      res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
-      res.end({error: err, message: 'There was an error retrieving the results'});
-    }
-  });
+  if(data.group.indexOf(',') === -1){
+
+    db.getResponses(data,function(err,groupResults){
+      if(!err){
+        res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
+        res.end(JSON.stringify(groupResults));
+      } else {
+        res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
+        res.end({error: err, message: 'There was an error retrieving the results'});
+      }
+    });
+
+  } else {
+
+    db.getGroupResponses(data,function(err,groupResults){
+      if(!err){
+        res.writeHead(200,{'Content-Type': 'application/json; charset=utf8'});
+        res.end(JSON.stringify(groupResults));
+      } else {
+        res.writeHead(500,{'Content-Type': 'application/json; charset=utf8'});
+        res.end({error: err, message: 'There was an error retrieving the results'});
+      }
+    });
+
+  }
 
 }
 
@@ -58,5 +106,6 @@ function getQuestions(req,res){
 }
 
 module.exports.saveResult = saveResult;
+module.exports.saveGroupImage = saveGroupImage;
 module.exports.getResult = getResult;
 module.exports.getQuestions= getQuestions;
