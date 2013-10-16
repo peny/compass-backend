@@ -25,7 +25,7 @@ node main.js
 
 ***DONE!***
 
-The server is now running at part 80.
+The server is now running at port 80.
 
 The port can easily be changed by changing the ```PORT``` variable located in *main.js*.
 
