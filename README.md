@@ -1,4 +1,6 @@
-compass-backend
+quickquiz-backend
 ===============
 
-The backend for the compass project
+The backend for the quickquiz project.
+
+It works as a JSON API for the MongoDB backend.
