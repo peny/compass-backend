@@ -7,7 +7,7 @@ It works as a JSON API for the MongoDB backend.
 
 It also serves static files from two folders called *public* and *media*. 
 
-## Get it running
+## Setup
 * Install node.js
 * Install MongoDB
 * 
