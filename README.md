@@ -23,7 +23,7 @@ npm install
 node main.js
 ```
 
-***DONE***
+***DONE!***
 
 The server is now running at part 80.
 
